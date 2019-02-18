@@ -1,8 +1,9 @@
-import React from "react";
-import Display from "./Display";
-import ButtonPanel from "./ButtonPanel";
-import Select from "./Select";
-import calculate from "../../logic/calculate";
+import React, { Component } from 'react';
+import { combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
+import { createStore, renderDevTools } from '../utils/devTools';
+
 import "../../css/component/App.css";
 
 class App extends React.Component {

@@ -1,8 +1,6 @@
 {
-  "name": "calculator",
+  "name": "todo-list",
   "version": "0.1.0",
-  "license": "MIT",
-  "homepage": "http://ahfarmer.github.io/calculator",
   "devDependencies": {
     "chai": "^4.1.2",
     "gh-pages": "^1.1.0",
@@ -14,7 +12,9 @@
     "github-fork-ribbon-css": "^0.2.1",
     "gulp": "^4.0.0",
     "react": "^16.4.0",
-    "react-dom": "^16.4.0"
+    "react-dom": "^16.4.0",
+    "react-redux": "^6.0.0",
+    "redux": "^1.0.0-rc"
   },
   "scripts": {
     "start": "react-scripts start",
