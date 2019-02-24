@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import visibilityFilter from './visibilityFilter'
-import notes from './notesList'
-import todos from './todoList'
+import NotesList from './notesList'
+import TodoList from './todoList'
 
 export default combineReducers({
-    notes,
-    todos,
+    NotesList,
+    TodoList,
     visibilityFilter
 })
