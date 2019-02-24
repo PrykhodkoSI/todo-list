@@ -2,9 +2,10 @@ import React from "react";
 import Actions from "../actions/TodoActions"
 
 class NotesBlock extends React.Component {
-    input;
     constructor(){
         super();
+        this.input = React.createRef();
+        this.option = React.createRef();
         this.handleAddButtonClick = this.handleAddButtonClick().bind();
         this.handleRemoveButtonClick = this.handleRemoveButtonClick().bind();
     }
@@ -19,22 +20,22 @@ class NotesBlock extends React.Component {
 
     handleRemoveButtonClick(event){
         event.preventDefault();
-        if (!this.input.value.trim()) {
+        if (!this.option.value.trim()) {
             return
         }
-        dispatch(Actions.removeNote(this.input.value));
+        dispatch(Actions.removeNote(this.option.value));
     }
-
-    getInputRef = (node) => {this.input = node;};
 
     render() {
         return <div className={"NotesBlock"}>
             <input
                 className={"NotesBlock__NoteList"}
-                ref={this.getInputRef}
+                ref={this.input}
                 type="text"
                 list="notesList">
-                <datalist id="notesList">
+                <datalist
+                    ref={this.option}
+                    id="notesList">
                     {this.props.notesList.map(note => {return <option value={note.id}>{note.name}</option>})}
                 </datalist>
             </input>
