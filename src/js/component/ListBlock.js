@@ -11,23 +11,18 @@ class ListBlock extends React.Component {
 
     render(){
         return <div className={"ListBlock"}>
-            <ul>
-                {todos.map(todo =>
-                    <Todo
-                        key={todo.id}
-                        {...todo}
-                        onClick={() => toggleTodo(todo.id)}
-                    />
-                )}
-            </ul>
+            {/*<ul>*/}
+                {/*{todos.map(todo =>*/}
+                    {/*<Todo*/}
+                        {/*key={todo.id}*/}
+                        {/*{...todo}*/}
+                        {/*onClick={() => toggleTodo(todo.id)}*/}
+                    {/*/>*/}
+                {/*)}*/}
+            {/*</ul>*/}
         </div>
     }
 
-    mapStateToProps(state){
-        return {
-            todos: this._getVisibleTodos(state.todos, state.visibilityFilter)
-        }
-    }
 
     _getVisibleTodos (todos, filter) {
         switch (filter) {

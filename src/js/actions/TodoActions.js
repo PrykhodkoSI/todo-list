@@ -32,6 +32,13 @@ const TodoListActions = {
         }
     },
 
+    selectNote(id) {
+      return {
+          type: Actions.SELECT_NOTE,
+          payload: id
+      }
+    },
+
     setVisibilityFilter(filter) {
         return {
             type: Actions.SET_VISIBILITY_FILTER,

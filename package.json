@@ -5,7 +5,8 @@
     "chai": "^4.1.2",
     "gh-pages": "^1.1.0",
     "prettier": "1.13.0",
-    "react-scripts": "^1.1.4"
+    "react-scripts": "^1.1.4",
+    "redux-devtools": "^3.5.0"
   },
   "dependencies": {
     "big.js": "^5.1.2",
@@ -13,8 +14,8 @@
     "gulp": "^4.0.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "react-redux": "^6.0.0",
-    "redux": "^1.0.0-rc"
+    "react-redux": "^6.0.1",
+    "redux": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
