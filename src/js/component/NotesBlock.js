@@ -37,13 +37,15 @@ class NotesBlock extends React.Component {
     }
 
     handleNoteChange(event) {
-        console.log("nodeChange");
-        console.log(event);
-        const id = event.target.value.trim();
-        if (!id) {
-            return;
+        if (event.key === 'Enter' && this.input.current.value) {
+            console.log("nodeChange");
+            console.log(event);
+            const id = this.input.current.value.trim();
+            if (!id) {
+                return;
+            }
+            this.props.onSelectNote(id);
         }
-        this.props.onSelectNote(id);
     }
 
     render() {
@@ -52,12 +54,12 @@ class NotesBlock extends React.Component {
         return <div className={"NotesBlock"}>
             <input
                 className={"NotesBlock__NoteList"}
+                onKeyPressCapture={this.handleNoteChange}
                 ref={this.input}
                 type="text"
                 list="notesList"/>
             <datalist
                 ref={this.option}
-                onChange={this.handleNoteChange}
                 id="notesList">
                 {Array.from(this.props.notesList).map(([id, name]) => {
                     return <option key={id} value={id}>{name}</option>
