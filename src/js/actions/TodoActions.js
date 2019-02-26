@@ -7,7 +7,10 @@ const TodoListActions = {
     addTodo(text) {
         return {
             type: Actions.ADD_TODO,
-            payload: {id: nextTodoId++, text: text}
+            payload: {
+                id: nextTodoId++,
+                text: text
+            }
         }
     },
 

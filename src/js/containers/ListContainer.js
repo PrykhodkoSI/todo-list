@@ -4,7 +4,8 @@ import Actions from "../actions/TodoActions";
 
 const mapStateToProps = (state) => {
     return {
-        todoList: state.todoList
+        todoList: state.TodoList.todoList,
+        filter: state.TodoList.filter
     }
 };
 
@@ -18,6 +19,9 @@ function mapDispatchToProps(dispatch) {
         },
         onToggleTodo: (id) => {
             dispatch(Actions.toggleTodo(id));
+        },
+        onSetVisibilityFilter: (filter) => {
+            dispatch(Actions.setVisibilityFilter(filter));
         }
     }
 }
