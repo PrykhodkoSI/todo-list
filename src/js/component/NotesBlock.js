@@ -3,10 +3,6 @@ import React from "react";
 class NotesBlock extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            notesList: []
-        };
-        //console.log(this.props);
         this.input = React.createRef();
         this.option = React.createRef();
         this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
@@ -38,8 +34,6 @@ class NotesBlock extends React.Component {
 
     handleNoteChange(event) {
         if (event.key === 'Enter' && this.input.current.value) {
-            console.log("nodeChange");
-            console.log(event);
             const id = this.input.current.value.trim();
             if (!id) {
                 return;
@@ -49,8 +43,6 @@ class NotesBlock extends React.Component {
     }
 
     render() {
-        console.log("render()");
-        console.log(this.props);
         return <div className={"NotesBlock"}>
             <input
                 className={"NotesBlock__NoteList"}

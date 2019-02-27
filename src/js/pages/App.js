@@ -1,6 +1,5 @@
 import React from 'react';
 
-//import {createStore, renderDevTools} from '../utils/devTools';
 import NotesContainer from "../containers/NotesContainer";
 import ListContainer from "../containers/ListContainer";
 

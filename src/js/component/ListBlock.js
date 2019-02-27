@@ -1,30 +1,18 @@
 import React from "react";
 import VisibilityFilters from "../constants/VisibilityFilters"
-import Todo from "./Todo";
-
+import PropTypes from "prop-types";
+import TodoContainer from "../containers/TodoContainer";
+import FilterButton from "./FilterButton";
 
 class ListBlock extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.textBox = React.createRef();
-        this.handleTodoClick =this.handleTodoClick.bind(this);
-        this.handleAddTodoClick =this.handleAddTodoClick.bind(this);
-        this.handleRemoveTodoClick =this.handleRemoveTodoClick.bind(this);
-    }
-
-    handleTodoClick(event){
-        console.log("handleTodoClick " + event.target.id);//TODO get id
-        this.props.onToggleTodo(event.target.id);
-    }
-
-    handleRemoveTodoClick(event){
-        console.log("handleRemoveTodoClick " + event.target.id);//TODO get id
-        this.props.onRemoveTodo(event.target.id);
+        this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
     }
 
     handleAddTodoClick(event) {
-        console.log("handleAddTodoClick");
         event.preventDefault();
         if (this.textBox.current) {
             const text = this.textBox.current.value.trim();
@@ -35,39 +23,61 @@ class ListBlock extends React.Component {
         }
     }
 
+    handleSetShowAllFilter = () => {
+        this.props.onSetVisibilityFilter(VisibilityFilters.SHOW_ALL);
+    };
+
+    handleSetShowActiveFilter = () => {
+        this.props.onSetVisibilityFilter(VisibilityFilters.SHOW_ACTIVE);
+    };
+
+    handleSetShowCompletedFilter = () => {
+        this.props.onSetVisibilityFilter(VisibilityFilters.SHOW_COMPLETED);
+    };
+
     render() {
+        if (this.props.selectedNote == null) return null;
+
         let todoList = this._getVisibleTodos();
         return <div className={"ListBlock"}>
-                <ul>
+            <ul>
                 {Array.from(todoList).map(([id, value]) =>
                     <div key={id}>
-                        <Todo
-                              id={id}
-                              {...value}
-                              onClick={this.handleTodoClick}/>
-                        <button onClick={this.handleRemoveTodoClick}>Remove Todo</button>
+                        <TodoContainer
+                            todoId={id}
+                            {...value}/>
                     </div>
                 )}
-                </ul>
-                <input type={"text"} ref={this.textBox}/>
-                <button onClick={this.handleAddTodoClick}>Add Todo</button>
+            </ul>
+            <input type={"text"} ref={this.textBox}/>
+            <button onClick={this.handleAddTodoClick}>Add Todo</button>
+            <div style={{marginTop: '10px'}}>
+                <FilterButton onClick={this.handleSetShowAllFilter} text={"Show All"}/>
+                <FilterButton onClick={this.handleSetShowActiveFilter} text={"Show Active"}/>
+                <FilterButton onClick={this.handleSetShowCompletedFilter} text={"Show Completed"}/>
+            </div>
         </div>
     }
 
-
-    _getVisibleTodos () {
+    _getVisibleTodos() {
         let {todoList, filter} = this.props;
         switch (filter) {
             case VisibilityFilters.SHOW_COMPLETED:
-                return todoList.filter(t => t.isCompleted)
+                return new Map([...todoList].filter(([k, v]) => v.isCompleted));
             case VisibilityFilters.SHOW_ACTIVE:
-                return todoList.filter(t => !t.isCompleted)
+                return new Map([...todoList].filter(([k, v]) => !v.isCompleted));
             case VisibilityFilters.SHOW_ALL:
             default:
                 return todoList
         }
     }
-
 }
+
+ListBlock.propTypes = {
+    todoList: PropTypes.objectOf(Map).isRequired,
+    notesList: PropTypes.objectOf(Map),
+    selectedNote: PropTypes.number,
+    filter: PropTypes.string.isRequired,
+};
 
 export default ListBlock;

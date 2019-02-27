@@ -5,22 +5,33 @@ class Todo extends React.Component {
 
     constructor(props){
         super(props);
+        this.handleTodoClick = this.handleTodoClick.bind(this);
+        this.handleRemoveTodoClick = this.handleRemoveTodoClick.bind(this);
+    }
 
+    handleTodoClick(){
+        let todoId = this.props.todoId;
+        this.props.onToggleTodo(todoId);
+    }
+
+    handleRemoveTodoClick(){
+        let todoId = this.props.todoId;
+        this.props.onRemoveTodo(todoId);
     }
 
     render() {
-        let {onClick, isCompleted, text} = this.props;
-        return <li onClick={onClick}
+        let {isCompleted, text} = this.props;
+        return <div><li onClick={this.handleTodoClick}
             style={{textDecoration: isCompleted ? 'line-through' : 'none'}}>
             {text}</li>
+            <button onClick={this.handleRemoveTodoClick}>Remove Todo</button>
+        </div>
     }
-
 }
 
 Todo.propTypes = {
-    onClick: PropTypes.func.isRequired,
     isCompleted: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired
-}
+};
 
 export default Todo

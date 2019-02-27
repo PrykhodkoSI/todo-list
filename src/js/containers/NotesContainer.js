@@ -4,7 +4,7 @@ import NotesBlock from "../component/NotesBlock"
 
 const mapStateToProps = (state) => {
     return {
-        notesList: state.NotesList.notesList
+        notesList: state.TodoList.notesList
     }
 };
 
