@@ -1,14 +1,13 @@
 import Actions from "../constants/Actions"
+import uuid from "uuid"
 
-let nextTodoId = 0;
-let nextNoteId = 0;
 const TodoListActions = {
 
     addTodo(text) {
         return {
             type: Actions.ADD_TODO,
             payload: {
-                id: nextTodoId++,
+                id: uuid(),
                 text: text
             }
         }
@@ -24,7 +23,7 @@ const TodoListActions = {
     addNote(name) {
         return {
             type: Actions.ADD_NOTE,
-            payload: {id: nextNoteId++, name: name}
+            payload: {id: uuid(), name: name}
         }
     },
 

@@ -19,7 +19,7 @@ const todoListReducer = (state = defaultState, action) => {
             };
         }
         case Actions.REMOVE_NOTE: {
-            let removingNote = Number(action.payload);
+            let removingNote = action.payload;
             let notesList = new Map(state.notesList);
             notesList.delete(removingNote);
             let todoList = new Map([...state.todoList].filter(([k, v]) => v.noteId != removingNote));
@@ -31,7 +31,7 @@ const todoListReducer = (state = defaultState, action) => {
             }
         }
         case Actions.SELECT_NOTE: {
-            let id = Number(action.payload);
+            let id = action.payload;
             return {
                 ...state,
                 selectedNote: id

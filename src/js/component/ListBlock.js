@@ -76,7 +76,7 @@ class ListBlock extends React.Component {
 ListBlock.propTypes = {
     todoList: PropTypes.objectOf(Map).isRequired,
     notesList: PropTypes.objectOf(Map),
-    selectedNote: PropTypes.number,
+    selectedNote: PropTypes.string,
     filter: PropTypes.string.isRequired,
 };
 
