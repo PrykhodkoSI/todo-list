@@ -7,13 +7,13 @@
   "author": "Stas Prykhodko <prykhodko.s.i@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "gulp": "^4.0.0",
     "gulp-watch": "^5.0.1",
     "prettier": "1.13.0",
     "react-scripts": "^1.1.4",
     "redux-devtools": "^3.5.0"
   },
   "dependencies": {
-    "gulp": "^4.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
