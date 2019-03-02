@@ -1,7 +1,7 @@
 import React from "react";
 import VisibilityFilters from "../constants/VisibilityFilters"
 import PropTypes from "prop-types";
-import TodoContainer from "../containers/TodoContainer";
+import Todo from "../containers/TodoContainer";
 import FilterButton from "./FilterButton";
 
 class ListBlock extends React.Component {
@@ -36,14 +36,15 @@ class ListBlock extends React.Component {
     };
 
     render() {
-        if (this.props.selectedNote == null) return null;
+        let selectedNote = this.props.selectedNote; //TODO pass from local state of NotesListBlock ?
+        if (selectedNote == null) return null;
+        let todoList = this._getVisibleTodos(this.props.todoList, this.props.filter);
 
-        let todoList = this._getVisibleTodos();
         return <div className={"ListBlock"}>
             <ul>
                 {Array.from(todoList).map(([id, value]) =>
                     <div key={id}>
-                        <TodoContainer
+                        <Todo
                             todoId={id}
                             {...value}/>
                     </div>
@@ -59,8 +60,7 @@ class ListBlock extends React.Component {
         </div>
     }
 
-    _getVisibleTodos() {
-        let {todoList, filter} = this.props;
+    _getVisibleTodos(todoList, filter) {
         switch (filter) {
             case VisibilityFilters.SHOW_COMPLETED:
                 return new Map([...todoList].filter(([k, v]) => v.isCompleted));

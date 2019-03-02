@@ -1,7 +1,7 @@
 import React from 'react';
 
-import NotesContainer from "../containers/NotesContainer";
-import ListContainer from "../containers/ListContainer";
+import NotesList from "../containers/NotesContainer";
+import TodoList from "../containers/ListContainer";
 
 class App extends React.Component {
     constructor(props) {
@@ -11,8 +11,8 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <NotesContainer/>
-                <ListContainer/>
+                <NotesList/>
+                <TodoList/>
             </div>
         );
     }

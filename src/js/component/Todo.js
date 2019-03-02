@@ -3,27 +3,28 @@ import PropTypes from 'prop-types'
 
 class Todo extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handleTodoClick = this.handleTodoClick.bind(this);
         this.handleRemoveTodoClick = this.handleRemoveTodoClick.bind(this);
     }
 
-    handleTodoClick(){
+    handleTodoClick() {
         let todoId = this.props.todoId;
         this.props.onToggleTodo(todoId);
     }
 
-    handleRemoveTodoClick(){
+    handleRemoveTodoClick() {
         let todoId = this.props.todoId;
         this.props.onRemoveTodo(todoId);
     }
 
     render() {
         let {isCompleted, text} = this.props;
-        return <div><li onClick={this.handleTodoClick}
-            style={{textDecoration: isCompleted ? 'line-through' : 'none'}}>
-            {text}</li>
+        return <div>
+            <li onClick={this.handleTodoClick}
+                style={{textDecoration: isCompleted ? 'line-through' : 'none'}}>
+                {text}</li>
             <button onClick={this.handleRemoveTodoClick}>Remove Todo</button>
         </div>
     }

@@ -19,11 +19,15 @@ const todoListReducer = (state = defaultState, action) => {
             };
         }
         case Actions.REMOVE_NOTE: {
+            let removingNote = Number(action.payload);
             let notesList = new Map(state.notesList);
-            notesList.delete(Number(action.payload));
+            notesList.delete(removingNote);
+            let todoList = new Map([...state.todoList].filter(([k, v]) => v.noteId != removingNote));
             return {
                 ...state,
-                notesList: notesList
+                todoList: todoList,
+                notesList: notesList,
+                selectedNote: state.selectedNote == removingNote ? null : removingNote
             }
         }
         case Actions.SELECT_NOTE: {
@@ -74,8 +78,6 @@ const todoListReducer = (state = defaultState, action) => {
                     filter: filter
                 }
             }
-            default:
-                return state
         }
     }
     return state
