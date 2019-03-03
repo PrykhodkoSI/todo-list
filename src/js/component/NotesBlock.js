@@ -6,9 +6,9 @@ class NotesBlock extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            textBox: ""
+            textBox: "",
+            dropDown: {key: "", value: ""}
         };
-        this.options = React.createRef();
         this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
         this.handleRemoveButtonClick = this.handleRemoveButtonClick.bind(this);
         this.handleNoteSelect = this.handleNoteSelect.bind(this);
@@ -23,19 +23,20 @@ class NotesBlock extends React.Component {
                 return;
             }
             this.props.onAddNote(name);
-            this.state.textBox = "";
+            this.setState({textBox: ""});
         }
     }
 
     handleRemoveButtonClick(event) {
         event.preventDefault();
-        let key = this.options.current._values.value.key;
+        let key = this.state.dropDown.key;
         if (key) {
             const id = key.trim();
             if (!id) {
                 return;
             }
             this.props.onRemoveNote(id);
+            this.setState({dropDown: {key:"", value:""}});
         }
     }
 
@@ -84,7 +85,8 @@ class NotesBlock extends React.Component {
                             dataField={"key"}
                             filter={false}
                             onSelect={this.handleNoteSelect}
-                            ref={this.options}
+                            onChange={(e)=>{this.setState({dropDown: e})}}
+                            value={this.state.dropDown}
                             placeholder={"Select Note"}
                         />
                     </td>

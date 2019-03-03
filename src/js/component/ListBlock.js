@@ -23,7 +23,7 @@ class ListBlock extends React.Component {
                 return;
             }
             this.props.onAddTodo(text);
-            this.state.textBox = "";
+            this.setState({textBox: ""});
         }
     }
 
@@ -51,6 +51,7 @@ class ListBlock extends React.Component {
         let selectedNote = this.props.selectedNote; //TODO pass from local state of NotesListBlock ?
         if (selectedNote == null) return null;
         let todoList = this._getVisibleTodos(this.props.todoList, this.props.filter);
+        let filterName = this._getFilterName(this.props.filter);
 
         return <table className={"ListBlock"}>
             <tbody>
@@ -81,11 +82,19 @@ class ListBlock extends React.Component {
                     </tr>
                 )
             }
-            <tr style={{marginTop: '10px'}}>
+            <tr style={{height: '3em'}}>
                 <td colSpan={3}>
                     <FilterButton onClick={this.handleSetShowAllFilter} text={"Show All"}/>
                     <FilterButton onClick={this.handleSetShowActiveFilter} text={"Show Active"}/>
                     <FilterButton onClick={this.handleSetShowCompletedFilter} text={"Show Completed"}/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>Filter:</h3>
+                </td>
+                <td colSpan={2}>
+                    <b>{filterName}</b>
                 </td>
             </tr>
             </tbody>
@@ -100,7 +109,20 @@ class ListBlock extends React.Component {
                 return new Map([...todoList].filter(([k, v]) => !v.isCompleted));
             case VisibilityFilters.SHOW_ALL:
             default:
-                return todoList
+                return todoList;
+        }
+    }
+
+    _getFilterName(filter){
+        switch (filter) {
+            case VisibilityFilters.SHOW_COMPLETED:
+                return "Completed";
+            case VisibilityFilters.SHOW_ACTIVE:
+                return "Active";
+            case VisibilityFilters.SHOW_ALL:
+                return "All";
+            default:
+                return filter;
         }
     }
 }
