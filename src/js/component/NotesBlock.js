@@ -1,19 +1,22 @@
 import React from "react";
+import {DropdownList} from 'react-widgets'
+import "../../css/component/NotesBlock.css"
 
 class NotesBlock extends React.Component {
     constructor(props) {
         super(props);
         this.input = React.createRef();
-        this.option = React.createRef();
+        this.options = React.createRef();
         this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
         this.handleRemoveButtonClick = this.handleRemoveButtonClick.bind(this);
-        this.handleNoteChange = this.handleNoteChange.bind(this);
+        this.handleNoteSelect = this.handleNoteSelect.bind(this);
     }
 
     handleAddButtonClick(event) {
         event.preventDefault();
-        if (this.input.current) {
-            const name = this.input.current.value.trim();
+        let value = this.input.current.value;
+        if (value) {
+            const name = value.trim();
             if (!name) {
                 return;
             }
@@ -23,8 +26,9 @@ class NotesBlock extends React.Component {
 
     handleRemoveButtonClick(event) {
         event.preventDefault();
-        if (this.input.current) {
-            const id = this.input.current.value.trim();
+        let key = this.options.current._values.value.key;
+        if (key) {
+            const id = key.trim();
             if (!id) {
                 return;
             }
@@ -32,9 +36,10 @@ class NotesBlock extends React.Component {
         }
     }
 
-    handleNoteChange(event) {
-        if (event.key === 'Enter' && this.input.current.value) {
-            const id = this.input.current.value.trim();
+    handleNoteSelect(event) {
+        let key = event.key;
+        if (key) {
+            const id = key.trim();
             if (!id) {
                 return;
             }
@@ -44,24 +49,33 @@ class NotesBlock extends React.Component {
 
     render() {
         return <div className={"NotesBlock"}>
-            <input
-                className={"NotesBlock__NoteList"}
-                onKeyPressCapture={this.handleNoteChange}
-                ref={this.input}
-                type="text"
-                list="notesList"/>
-            <datalist
-                ref={this.option}
-                id="notesList">
-                {Array.from(this.props.notesList).map(([id, name]) => {
-                    return <option key={id} value={id}>{name}</option>
-                })}
-            </datalist>
-            <button className={"NotesBlock__AddButton"} type="button" onClick={this.handleAddButtonClick}>Add Note
-            </button>
-            <button className={"NotesBlock__DeleteButton"} type="button" onClick={this.handleRemoveButtonClick}>Remove
-                Note
-            </button>
+            <div className={"NotesBlock__NotesAddArea"}>
+                <input
+                    className={"NotesBlock__NoteList"}
+                    ref={this.input}
+                    type="text"/>
+                <button className={"NotesBlock__AddButton"} type="button" onClick={this.handleAddButtonClick}>Add Note
+                </button>
+            </div>
+            {
+                this.props.notesList.size > 0 &&
+                <div className={"NotesBlock__NotesChangeArea"}>
+                    <DropdownList
+                        className={"NotesBlock__NotesList"}
+                        data={Array.from(this.props.notesList, ([id, name]) => {
+                            return {key: id, value: name}
+                        })}
+                        textField={"value"}
+                        dataField={"key"}
+                        filter={false}
+                        onSelect={this.handleNoteSelect}
+                        ref={this.options}
+                    />
+                    <button className={"NotesBlock__DeleteButton"} type="button"
+                            onClick={this.handleRemoveButtonClick}>Remove Note
+                    </button>
+                </div>
+                }
         </div>;
     }
 

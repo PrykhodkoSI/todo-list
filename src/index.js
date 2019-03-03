@@ -4,6 +4,7 @@ import { createStore } from 'redux'
 import rootReducer from './js/redusers/index'
 import ReactDOM from "react-dom";
 import App from "./js/pages/App";
+import 'react-widgets/dist/css/react-widgets.css';
 
 const store = createStore(rootReducer);
 

@@ -24,15 +24,20 @@ class Todo extends React.Component {
         return <div>
             <li onClick={this.handleTodoClick}
                 style={{textDecoration: isCompleted ? 'line-through' : 'none'}}>
-                {text}</li>
-            <button onClick={this.handleRemoveTodoClick}>Remove Todo</button>
+                {text}
+                <button
+                    style={{marginLeft: 20}}
+                    onClick={this.handleRemoveTodoClick}>Remove Todo</button>
+            </li>
+
         </div>
     }
 }
 
 Todo.propTypes = {
     isCompleted: PropTypes.bool.isRequired,
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+    todoId: PropTypes.string.isRequired
 };
 
 export default Todo
