@@ -1,7 +1,18 @@
-.NotesBlock__NotesList{
+.NotesBlock__NoteList{
     display: inline-block;
-    width: 10%;
+    width: 10em;
+    height: 2em;
 }
+
 .NotesBlock__NotesChangeArea{
     margin-top: 10px;
+}
+
+.NotesBlock__NotesAddArea{
+    display: inline-block;
+}
+
+.NotesBlock__NotesLabel{
+    display: inline-block;
+
 }

@@ -20,6 +20,12 @@ function mapDispatchToProps(dispatch) {
         },
         onSetVisibilityFilter: (filter) => {
             dispatch(Actions.setVisibilityFilter(filter));
+        },
+        onRemoveTodo: (id) => {
+            dispatch(Actions.removeTodo(id));
+        },
+        onToggleTodo: (id) => {
+            dispatch(Actions.toggleTodo(id));
         }
     }
 }

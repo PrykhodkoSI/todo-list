@@ -1,5 +1,6 @@
 import Actions from "../constants/Actions";
 import VisibilityFilters from "../constants/VisibilityFilters";
+import uuid from "uuid"
 
 const defaultState = {
     todoList: new Map(),
@@ -12,7 +13,7 @@ const todoListReducer = (state = defaultState, action) => {
     switch (action.type) {
         case Actions.ADD_NOTE: {
             let notesList = new Map(state.notesList);
-            notesList.set(action.payload.id, action.payload.name);
+            notesList.set(uuid(), action.payload);
             return {
                 ...state,
                 notesList: notesList
@@ -42,9 +43,9 @@ const todoListReducer = (state = defaultState, action) => {
         switch (action.type) {
             case Actions.ADD_TODO: {
                 let todoList = new Map(state.todoList);
-                todoList.set(action.payload.id, {
+                todoList.set(uuid(), {
                     noteId: state.selectedNote,
-                    text: action.payload.text,
+                    text: action.payload,
                     isCompleted: false
                 });
                 return {

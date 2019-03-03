@@ -1,8 +1,9 @@
 import React from "react";
 import VisibilityFilters from "../constants/VisibilityFilters"
 import PropTypes from "prop-types";
-import Todo from "../containers/TodoContainer";
+import Todo from "./Todo";
 import FilterButton from "./FilterButton";
+import "../../css/component/ListBlock.css"
 
 class ListBlock extends React.Component {
 
@@ -20,7 +21,16 @@ class ListBlock extends React.Component {
                 return;
             }
             this.props.onAddTodo(text);
+            this.textBox.current.value = "";
         }
+    }
+
+    handleRemoveTodoClick(id) {
+        this.props.onRemoveTodo(id);
+    }
+
+    handleTodoClick(id) {
+        this.props.onToggleTodo(id);
     }
 
     handleSetShowAllFilter = () => {
@@ -40,24 +50,40 @@ class ListBlock extends React.Component {
         if (selectedNote == null) return null;
         let todoList = this._getVisibleTodos(this.props.todoList, this.props.filter);
 
-        return <div className={"ListBlock"}>
-            <ul>
-                {Array.from(todoList).map(([id, value]) =>
-                    <div key={id}>
-                        <Todo
-                            todoId={id}
-                            {...value}/>
-                    </div>
-                )}
-            </ul>
-            <input type={"text"} ref={this.textBox}/>
-            <button onClick={this.handleAddTodoClick}>Add Todo</button>
-            <div style={{marginTop: '10px'}}>
-                <FilterButton onClick={this.handleSetShowAllFilter} text={"Show All"}/>
-                <FilterButton onClick={this.handleSetShowActiveFilter} text={"Show Active"}/>
-                <FilterButton onClick={this.handleSetShowCompletedFilter} text={"Show Completed"}/>
-            </div>
-        </div>
+        return <table className={"ListBlock"}>
+            <tbody>
+            <tr>
+                <td>
+                    <h2>Todos:</h2>
+                </td>
+                <td>
+                    <input placeholder={"Type todo"} type={"text"} ref={this.textBox}/>
+                </td>
+                <td>
+                    <button onClick={this.handleAddTodoClick}>Add Todo</button>
+                </td>
+            </tr>
+            {
+                Array.from(todoList).map(([id, value]) =>
+                    <tr key={id}>
+                        <td colSpan={2} onClick={this.handleTodoClick.bind(this, id)}>
+                        <Todo {...value}/>
+                        </td>
+                        <td>
+                        <button onClick={this.handleRemoveTodoClick.bind(this, id)}>Remove Todo</button>
+                        </td>
+                    </tr>
+                )
+            }
+            <tr style={{marginTop: '10px'}}>
+                <td colSpan={3}>
+                    <FilterButton onClick={this.handleSetShowAllFilter} text={"Show All"}/>
+                    <FilterButton onClick={this.handleSetShowActiveFilter} text={"Show Active"}/>
+                    <FilterButton onClick={this.handleSetShowCompletedFilter} text={"Show Completed"}/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     }
 
     _getVisibleTodos(todoList, filter) {

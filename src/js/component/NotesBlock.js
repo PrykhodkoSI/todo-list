@@ -21,6 +21,7 @@ class NotesBlock extends React.Component {
                 return;
             }
             this.props.onAddNote(name);
+            this.input.current.value = "";
         }
     }
 
@@ -48,35 +49,51 @@ class NotesBlock extends React.Component {
     }
 
     render() {
-        return <div className={"NotesBlock"}>
-            <div className={"NotesBlock__NotesAddArea"}>
-                <input
-                    className={"NotesBlock__NoteList"}
-                    ref={this.input}
-                    type="text"/>
-                <button className={"NotesBlock__AddButton"} type="button" onClick={this.handleAddButtonClick}>Add Note
-                </button>
-            </div>
+        return <table className={"NotesBlock"}>
+            <tbody>
+            <tr>
+                <td>
+                    <h1 className={"NotesBlock__NotesLabel"}>Notes:</h1>
+                </td>
+                <td>
+                    <input
+                        className={"NotesBlock__NoteList"}
+                        ref={this.input}
+                        placeholder={"Type note name"}
+                        type="text"/>
+                </td>
+                <td>
+                    <button className={"NotesBlock__AddButton"} type="button"
+                            onClick={this.handleAddButtonClick}>Add Note
+                    </button>
+                </td>
+            </tr>
             {
                 this.props.notesList.size > 0 &&
-                <div className={"NotesBlock__NotesChangeArea"}>
-                    <DropdownList
-                        className={"NotesBlock__NotesList"}
-                        data={Array.from(this.props.notesList, ([id, name]) => {
-                            return {key: id, value: name}
-                        })}
-                        textField={"value"}
-                        dataField={"key"}
-                        filter={false}
-                        onSelect={this.handleNoteSelect}
-                        ref={this.options}
-                    />
-                    <button className={"NotesBlock__DeleteButton"} type="button"
-                            onClick={this.handleRemoveButtonClick}>Remove Note
-                    </button>
-                </div>
-                }
-        </div>;
+                <tr className={"NotesBlock__NotesChangeArea"}>
+                    <td colSpan="2">
+                        <DropdownList
+                            className={"NotesBlock__NotesList"}
+                            data={Array.from(this.props.notesList, ([id, name]) => {
+                                return {key: id, value: name}
+                            })}
+                            textField={"value"}
+                            dataField={"key"}
+                            filter={false}
+                            onSelect={this.handleNoteSelect}
+                            ref={this.options}
+                            placeholder={"Select Note"}
+                        />
+                    </td>
+                    <td>
+                        <button className={"NotesBlock__DeleteButton"} type="button"
+                                onClick={this.handleRemoveButtonClick}>Remove Note
+                        </button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>;
     }
 
 

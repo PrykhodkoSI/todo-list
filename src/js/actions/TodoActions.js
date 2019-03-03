@@ -1,15 +1,11 @@
 import Actions from "../constants/Actions"
-import uuid from "uuid"
 
 const TodoListActions = {
 
     addTodo(text) {
         return {
             type: Actions.ADD_TODO,
-            payload: {
-                id: uuid(),
-                text: text
-            }
+            payload: text
         }
     },
 
@@ -23,7 +19,7 @@ const TodoListActions = {
     addNote(name) {
         return {
             type: Actions.ADD_NOTE,
-            payload: {id: uuid(), name: name}
+            payload: name
         }
     },
 
