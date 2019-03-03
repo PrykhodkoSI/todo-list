@@ -9,19 +9,21 @@ class ListBlock extends React.Component {
 
     constructor(props) {
         super(props);
-        this.textBox = React.createRef();
+        this.state = {
+            textBox: ""
+        };
         this.handleAddTodoClick = this.handleAddTodoClick.bind(this);
     }
 
     handleAddTodoClick(event) {
         event.preventDefault();
-        if (this.textBox.current) {
-            const text = this.textBox.current.value.trim();
+        if (this.state.textBox) {
+            const text = this.state.textBox.trim();
             if (!text) {
                 return;
             }
             this.props.onAddTodo(text);
-            this.textBox.current.value = "";
+            this.state.textBox = "";
         }
     }
 
@@ -57,7 +59,11 @@ class ListBlock extends React.Component {
                     <h2>Todos:</h2>
                 </td>
                 <td>
-                    <input placeholder={"Type todo"} type={"text"} ref={this.textBox}/>
+                    <input
+                        placeholder={"Type todo"}
+                        type={"text"}
+                        value={this.state.textBox}
+                        onChange={(e) => this.setState({textBox: e.target.value})}/>
                 </td>
                 <td>
                     <button onClick={this.handleAddTodoClick}>Add Todo</button>

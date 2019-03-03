@@ -5,7 +5,9 @@ import "../../css/component/NotesBlock.css"
 class NotesBlock extends React.Component {
     constructor(props) {
         super(props);
-        this.input = React.createRef();
+        this.state = {
+            textBox: ""
+        };
         this.options = React.createRef();
         this.handleAddButtonClick = this.handleAddButtonClick.bind(this);
         this.handleRemoveButtonClick = this.handleRemoveButtonClick.bind(this);
@@ -14,14 +16,14 @@ class NotesBlock extends React.Component {
 
     handleAddButtonClick(event) {
         event.preventDefault();
-        let value = this.input.current.value;
+        let value = this.state.textBox;
         if (value) {
             const name = value.trim();
             if (!name) {
                 return;
             }
             this.props.onAddNote(name);
-            this.input.current.value = "";
+            this.state.textBox = "";
         }
     }
 
@@ -58,7 +60,8 @@ class NotesBlock extends React.Component {
                 <td>
                     <input
                         className={"NotesBlock__NoteList"}
-                        ref={this.input}
+                        value={this.state.textBox}
+                        onChange={(e) => this.setState({textBox: e.target.value})}
                         placeholder={"Type note name"}
                         type="text"/>
                 </td>
