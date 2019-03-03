@@ -9,7 +9,10 @@ class Todo extends React.Component {
 
     render() {
         let {isCompleted, text} = this.props;
-        return <li style={{textDecoration: isCompleted ? 'line-through' : 'none'}}>{text}</li>
+        return <li style={{
+        textDecoration: isCompleted ? 'line-through' : 'none',
+        margin: '1em'
+        }}>{text}</li>
     }
 }
 
